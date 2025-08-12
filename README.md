@@ -1,6 +1,7 @@
 🏨 GuestGlow: A MERN Stack Hotel Booking App
 📝 Introduction
-GuestGlow is a full-stack hotel booking application that allows users to browse available hotels, view detailed information, and make reservations. It leverages the power of the MERN stack (MongoDB, Express.js, React.js, Node.js) combined with modern services like Clerk for authentication and Cloudinary for image management, creating a seamless and robust user experience. 
+GuestGlow is a full-stack hotel booking application that allows users to browse available hotels, view detailed information, and make reservations. It leverages the power of the MERN stack (MongoDB, Express.js, React.js, Node.js) combined with modern services like Clerk for authentication and Cloudinary for image management, creating a seamless and robust user experience
+
 ✨ Features
 Secure User Authentication: Users can sign up, sign in, and manage their profiles securely using Clerk.
 
@@ -22,7 +23,7 @@ Tailwind CSS: A utility-first CSS framework for rapid and responsive styling.
 
 Clerk: A complete user management platform for authentication.
 
-React JS: For fetching, caching, and updating asynchronous data.
+React Query: For fetching, caching, and updating asynchronous data.
 
 Backend
 Node.js & Express.js: The backend runtime and web framework for building the API.
@@ -53,24 +54,15 @@ Clone the repository:
 git clone https://github.com/your-username/GuestGlow.git
 cd GuestGlow
 
-
-
-
 Set up the Backend:
 
 Navigate to the backend directory.
 
 cd backend
 
-
-
-
 Install dependencies.
 
 npm install
-
-
-
 
 Create a .env file in the backend directory and add the following environment variables:
 
@@ -81,15 +73,9 @@ CLOUDINARY_API_KEY=<Your Cloudinary API key>
 CLOUDINARY_API_SECRET=<Your Cloudinary API secret>
 JWT_SECRET=<A secret key for JWT>
 
-
-
-
 Start the backend server.
 
 npm start
-
-
-
 
 Set up the Frontend:
 
@@ -97,30 +83,18 @@ Navigate back to the root directory and then into the frontend directory.
 
 cd ../frontend
 
-
-
-
 Install dependencies.
 
 npm install
-
-
-
 
 Create a .env file in the frontend directory and add the following environment variables:
 
 VITE_CLERK_PUBLISHABLE_KEY=<Your Clerk publishable key>
 VITE_API_BASE_URL=<Your backend API base URL, e.g., http://localhost:5000/api>
 
-
-
-
 Start the frontend development server.
 
 npm run dev
-
-
-
 
 The application should now be running! You can access the frontend at http://localhost:5173 (or the port specified by your development server) and the backend API at http://localhost:5000.
 
@@ -147,8 +121,6 @@ GuestGlow/
 │   ├── package.json
 │   └── ...
 └── README.md
-
-
 
 📄 License
 This project is licensed under the MIT License. See the LICENSE file for details.
