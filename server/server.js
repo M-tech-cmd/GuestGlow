@@ -1,33 +1,27 @@
-import express from "express"
-import "dotenv/config"
-import cors from "cors"
-import connectDB from "./configs/db.js"
-import { clerkMiddleware } from '@clerk/express'
-import clerkWebhooks from "./controllers/clerkWebhooks.js"
+import express from "express";
+import "dotenv/config";
+import cors from "cors";
+import connectDB from "./configs/db.js";
+import { clerkMiddleware } from "@clerk/express";
+import clerkWebhooks from "./controllers/clerkWebhooks.js";
 
-// Calling the ConnectDB() function
-connectDB()
+// Connect to MongoDB
+connectDB();
 
-// Creating an app using Express
-const app = express()
-app.use(cors())  // Enable Cross origin Resource Sharing
-// This will help in connect frontend with the backend
+// Create an Express app
+const app = express();
 
-// one more middleware - all requests will be passed using json method.
-app.use(express.json())
+// Middleware
+app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(express.json()); // Parse incoming JSON
+app.use(clerkMiddleware()); // Clerk authentication middleware
 
-// Adding ClerkMiddle ware
-app.use(clerkMiddleware())
-
-// API to Listen Clerk WebHooks
+// Clerk Webhooks API
 app.use("/api/clerk", clerkWebhooks);
 
+// Test endpoint
+app.get("/", (req, res) => res.send("API is working."));
 
-// First API End-Point
-//req - request and res - response .
-app.get('/', (req ,res) => res.send("API is working."))
-
-// For Port Number
-const PORT = process.env.PORT || 3000 ;
-
-app.listen(PORT, ()=>console.log(`Server running on this port ${PORT}`)) ; 
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
