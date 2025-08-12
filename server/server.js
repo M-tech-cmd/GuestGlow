@@ -14,12 +14,20 @@ const app = express();
 // Middleware
 app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse incoming JSON
-app.use(clerkMiddleware()); // Clerk authentication middleware
+
+// Apply Clerk middleware only to protected routes
+app.use(
+  "/api/protected",
+  clerkMiddleware({
+    publishableKey: process.env.CLERK_PUBLISHABLE_KEY,
+    secretKey: process.env.CLERK_SECRET_KEY,
+  })
+);
 
 // Clerk Webhooks API
 app.use("/api/clerk", clerkWebhooks);
 
-// Test endpoint
+// Public test endpoint
 app.get("/", (req, res) => res.send("API is working."));
 
 // Start server
