@@ -1,7 +1,6 @@
 🏨 GuestGlow: A MERN Stack Hotel Booking App
 📝 Introduction
-GuestGlow is a full-stack hotel booking application that allows users to browse available hotels, view detailed information, and make reservations. It leverages the power of the MERN stack (MongoDB, Express.js, React.js, Node.js) combined with modern services like Clerk for authentication and Cloudinary for image management, creating a seamless and robust user experience. The logo above represents the brand's visual identity.
-
+GuestGlow is a full-stack hotel booking application that allows users to browse available hotels, view detailed information, and make reservations. It leverages the power of the MERN stack (MongoDB, Express.js, React.js, Node.js) combined with modern services like Clerk for authentication and Cloudinary for image management, creating a seamless and robust user experience. 
 ✨ Features
 Secure User Authentication: Users can sign up, sign in, and manage their profiles securely using Clerk.
 
