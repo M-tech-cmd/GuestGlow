@@ -1,143 +1,172 @@
 GuestGlow 🏨✨
-A MERN Fullstack Hotel Booking Application
 
-GuestGlow is a modern hotel booking platform built with the MERN stack, integrating Clerk for authentication, Cloudinary for image storage, and a responsive ReactJS front-end for an intuitive user experience.
+   
 
-🚀 Features
-User Authentication & Management via Clerk (Sign up, Login, Social logins).
+A modern MERN full‑stack hotel booking app built with React, Express, MongoDB, and Node.js, using Clerk for authentication and Cloudinary for image hosting.
 
-Hotel Management – Add, edit, and delete hotels with images.
+📋 Features
 
-Image Uploads – Seamless upload and storage using Cloudinary.
+🔑 User Authentication – Sign up / login via Clerk (social login supported)
 
-Search & Filter – Find hotels by location, price, and rating.
+🏨 Hotel Management – Create, update, delete hotels with images
 
-Booking System – Reserve rooms with real-time availability updates.
+🔍 Search & Filter – By location, price, rating
 
-Responsive Design – Works on desktop, tablet, and mobile.
+📅 Booking System – Real‑time availability
 
-Secure REST API – Express backend with protected routes.
+📱 Responsive UI – Mobile‑friendly design
+
+🔒 Secure REST API – Protected routes with Clerk middleware
 
 🛠 Tech Stack
-Frontend:
 
-ReactJS (with Hooks & Context API / Redux)
+Frontend: ReactJS, React Router, Axios, TailwindCSS (or your chosen CSS)
 
-TailwindCSS / Styled Components (if used)
+Backend: Node.js, Express.js, MongoDB + Mongoose
 
-Axios
+Integrations: Clerk (Auth), Cloudinary (Images)
 
-Backend:
+📂 Folder Structure
 
-Node.js
+guestglow/
+├─ client/   # React frontend
+├─ server/   # Express backend
+└─ README.md
 
-Express.js
+🚀 Getting Started
 
-MongoDB + Mongoose
+Prerequisites
 
-Integrations:
+Node.js (>= 16)
 
-Clerk – Authentication & User Management
+MongoDB Atlas/local
 
-Cloudinary – Image Upload & Hosting
+Clerk account
 
-📦 Installation
-1️⃣ Clone the repository
-bash
-Copy
-Edit
+Cloudinary account
+
+Installation
+
 git clone https://github.com/yourusername/guestglow.git
 cd guestglow
-2️⃣ Install dependencies
-Frontend:
 
-bash
-Copy
-Edit
-cd client
-npm install
-Backend:
+# Install backend
+tcd server && npm install
 
-bash
-Copy
-Edit
-cd server
-npm install
-3️⃣ Environment variables
-Create .env files in both server and client directories.
+# Install frontend
+cd ../client && npm install
 
-Server .env
+Environment Variables
 
-ini
-Copy
-Edit
+server/.env
+
 PORT=5000
-MONGO_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_uri
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 CLERK_SECRET_KEY=your_clerk_secret
-CLOUDINARY_CLOUD_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-Client .env
 
-ini
-Copy
-Edit
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+client/.env
+
+VITE_CLERK_PUBLISHABLE_KEY=your_publishable_key
 VITE_API_BASE_URL=http://localhost:5000
-4️⃣ Run the app
+
+▶️ Running the App
+
 Backend:
 
-bash
-Copy
-Edit
 cd server
 npm run dev
+
 Frontend:
 
-bash
-Copy
-Edit
 cd client
 npm run dev
-📸 Screenshots
-(Add your app screenshots here using Cloudinary URLs)
-Example:
 
-📜 API Endpoints
-Method	Endpoint	Description	Auth Required
-GET	/api/hotels	Get all hotels	No
-POST	/api/hotels	Create a hotel listing	Yes
-GET	/api/hotels/:id	Get hotel by ID	No
-POST	/api/bookings	Create a booking	Yes
-GET	/api/bookings	Get user bookings	Yes
+📡 API Endpoints
 
-🔒 Authentication Flow
-Users sign up/login via Clerk.
+Method
 
-Clerk issues a JWT/session token.
+Endpoint
 
-Backend verifies token for protected routes.
+Description
 
-🌟 Future Improvements
-Payment integration (Stripe/PayPal).
+Auth
 
-Advanced search filters (amenities, room type).
+GET
 
-Admin dashboard for hotel owners.
+/api/hotels
 
-Email notifications for bookings.
+Get all hotels
 
-🤝 Contributing
-Fork the repository
+No
 
-Create a feature branch (git checkout -b feature-name)
+POST
 
-Commit changes (git commit -m "Add new feature")
+/api/hotels
 
-Push to branch (git push origin feature-name)
+Create hotel
 
-Create a Pull Request
+Yes
+
+GET
+
+/api/hotels/:id
+
+Get hotel details
+
+No
+
+POST
+
+/api/bookings
+
+Create booking
+
+Yes
+
+GET
+
+/api/bookings
+
+Get user bookings
+
+Yes
+
+🔐 Authentication Flow
+
+User logs in via Clerk (frontend)
+
+Clerk issues session token
+
+Frontend sends token with API requests
+
+Backend verifies token using Clerk middleware
+
+🖼 Image Uploads with Cloudinary
+
+const data = new FormData();
+data.append('file', file);
+data.append('upload_preset', 'unsigned_preset');
+
+const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+  method: 'POST',
+  body: data
+});
+
+const fileData = await res.json();
+console.log(fileData.secure_url);
+
+📌 Future Enhancements
+
+💳 Stripe/PayPal payments
+
+🛎 Advanced filters (amenities, room type)
+
+📊 Admin dashboard
 
 📄 License
-This project is licensed under the MIT License.
+
+MIT License © Emmanuel Gema Kimani
 
