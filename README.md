@@ -1,126 +1,143 @@
-🏨 GuestGlow: A MERN Stack Hotel Booking App
-📝 Introduction
-GuestGlow is a full-stack hotel booking application that allows users to browse available hotels, view detailed information, and make reservations. It leverages the power of the MERN stack (MongoDB, Express.js, React.js, Node.js) combined with modern services like Clerk for authentication and Cloudinary for image management, creating a seamless and robust user experience
+GuestGlow 🏨✨
+A MERN Fullstack Hotel Booking Application
 
-✨ Features
-Secure User Authentication: Users can sign up, sign in, and manage their profiles securely using Clerk.
+GuestGlow is a modern hotel booking platform built with the MERN stack, integrating Clerk for authentication, Cloudinary for image storage, and a responsive ReactJS front-end for an intuitive user experience.
 
-Hotel Listings: Browse a variety of hotels with detailed descriptions, amenities, and image galleries.
+🚀 Features
+User Authentication & Management via Clerk (Sign up, Login, Social logins).
 
-Image Upload: Hotel owners can upload multiple images for their listings using Cloudinary.
+Hotel Management – Add, edit, and delete hotels with images.
 
-Booking Management: Users can view their past and upcoming bookings.
+Image Uploads – Seamless upload and storage using Cloudinary.
 
-Admin Dashboard: A dedicated interface for managing hotels and bookings.
+Search & Filter – Find hotels by location, price, and rating.
 
-Responsive Design: A clean and modern user interface that works well on all devices.
+Booking System – Reserve rooms with real-time availability updates.
 
-🛠️ Technologies Used
-Frontend
-React.js: A JavaScript library for building the user interface.
+Responsive Design – Works on desktop, tablet, and mobile.
 
-Tailwind CSS: A utility-first CSS framework for rapid and responsive styling.
+Secure REST API – Express backend with protected routes.
 
-Clerk: A complete user management platform for authentication.
+🛠 Tech Stack
+Frontend:
 
-React Query: For fetching, caching, and updating asynchronous data.
+ReactJS (with Hooks & Context API / Redux)
 
-Backend
-Node.js & Express.js: The backend runtime and web framework for building the API.
+TailwindCSS / Styled Components (if used)
 
-MongoDB: A NoSQL database for storing application data.
+Axios
 
-Mongoose: An object data modeling (ODM) library for MongoDB and Node.js.
+Backend:
 
-Cloudinary: A cloud-based service for image and video management, handling uploads and storage.
+Node.js
 
-Clerk: Used for validating user authentication on the backend.
+Express.js
 
-🚀 Getting Started
-Follow these steps to get your GuestGlow application up and running on your local machine.
+MongoDB + Mongoose
 
-Prerequisites
-Node.js (v14.x or later)
+Integrations:
 
-npm or yarn
+Clerk – Authentication & User Management
 
-A running instance of MongoDB
+Cloudinary – Image Upload & Hosting
 
-Accounts for Clerk and Cloudinary
+📦 Installation
+1️⃣ Clone the repository
+bash
+Copy
+Edit
+git clone https://github.com/yourusername/guestglow.git
+cd guestglow
+2️⃣ Install dependencies
+Frontend:
 
-Installation
-Clone the repository:
-
-git clone https://github.com/your-username/GuestGlow.git
-cd GuestGlow
-
-Set up the Backend:
-
-Navigate to the backend directory.
-
-cd backend
-
-Install dependencies.
-
+bash
+Copy
+Edit
+cd client
 npm install
+Backend:
 
-Create a .env file in the backend directory and add the following environment variables:
-
-MONGO_URI=<Your MongoDB connection string>
-CLERK_WEBHOOK_SECRET=<Your Clerk webhook secret>
-CLOUDINARY_CLOUD_NAME=<Your Cloudinary cloud name>
-CLOUDINARY_API_KEY=<Your Cloudinary API key>
-CLOUDINARY_API_SECRET=<Your Cloudinary API secret>
-JWT_SECRET=<A secret key for JWT>
-
-Start the backend server.
-
-npm start
-
-Set up the Frontend:
-
-Navigate back to the root directory and then into the frontend directory.
-
-cd ../frontend
-
-Install dependencies.
-
+bash
+Copy
+Edit
+cd server
 npm install
+3️⃣ Environment variables
+Create .env files in both server and client directories.
 
-Create a .env file in the frontend directory and add the following environment variables:
+Server .env
 
-VITE_CLERK_PUBLISHABLE_KEY=<Your Clerk publishable key>
-VITE_API_BASE_URL=<Your backend API base URL, e.g., http://localhost:5000/api>
+ini
+Copy
+Edit
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+CLERK_SECRET_KEY=your_clerk_secret
+CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+Client .env
 
-Start the frontend development server.
+ini
+Copy
+Edit
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+VITE_API_BASE_URL=http://localhost:5000
+4️⃣ Run the app
+Backend:
 
+bash
+Copy
+Edit
+cd server
 npm run dev
+Frontend:
 
-The application should now be running! You can access the frontend at http://localhost:5173 (or the port specified by your development server) and the backend API at http://localhost:5000.
+bash
+Copy
+Edit
+cd client
+npm run dev
+📸 Screenshots
+(Add your app screenshots here using Cloudinary URLs)
+Example:
 
-📂 Project Structure
-GuestGlow/
-├── backend/
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── ...
-│   │   └── server.js
-│   ├── .env
-│   ├── package.json
-│   └── ...
-├── frontend/
-│   ├── src/
-│   │   ├── assets/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── App.jsx
-│   │   └── ...
-│   ├── .env
-│   ├── package.json
-│   └── ...
-└── README.md
+📜 API Endpoints
+Method	Endpoint	Description	Auth Required
+GET	/api/hotels	Get all hotels	No
+POST	/api/hotels	Create a hotel listing	Yes
+GET	/api/hotels/:id	Get hotel by ID	No
+POST	/api/bookings	Create a booking	Yes
+GET	/api/bookings	Get user bookings	Yes
+
+🔒 Authentication Flow
+Users sign up/login via Clerk.
+
+Clerk issues a JWT/session token.
+
+Backend verifies token for protected routes.
+
+🌟 Future Improvements
+Payment integration (Stripe/PayPal).
+
+Advanced search filters (amenities, room type).
+
+Admin dashboard for hotel owners.
+
+Email notifications for bookings.
+
+🤝 Contributing
+Fork the repository
+
+Create a feature branch (git checkout -b feature-name)
+
+Commit changes (git commit -m "Add new feature")
+
+Push to branch (git push origin feature-name)
+
+Create a Pull Request
 
 📄 License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License.
+
