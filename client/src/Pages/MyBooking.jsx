@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Title from "../Components/Title";
-import {userBookingsDummyData, assets} from '../assets/assets'
+import {assets} from '../assets/assets'
 import { useState } from "react";
+import { useAppContext } from "../Context/AppContext";
+import toast from "react-hot-toast";
 
 
 // Now we have to create a State variable to store the data form the usersBooking Dummy Data. 
@@ -9,9 +11,25 @@ import { useState } from "react";
 const Mybooking = () => {
 
     // Now we have to create a State variable to store the data form the usersBooking Dummy Data. 
-    const [booking, setBookings] = useState(userBookingsDummyData)
+    const {axios, getToken, user} = useAppContext()
+    const [booking, setBookings] = useState([])
+    
+const fetchUserBookings = async () => {
+  try {
+    const token = await getToken();
+    const { data } = await axios.get("/api/bookings/user", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (data.success) setBookings(data.bookings);
+    else toast.error(data.message);
+  } catch (error) {
+    toast.error(error.response?.data?.message || error.message);
+  }
+};
 
-
+useEffect(() => {
+  fetchUserBookings();
+}, [user]);
 
   return (
     <div className="py-28 md:pb-35 md:pt-32 px-4 md:px-16 lg:px-24 xl:px-32">

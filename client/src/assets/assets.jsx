@@ -77,7 +77,7 @@ export const assets = {
 export const cities = [
     "Dubai",
     "Singapore",
-    "Nairobi",
+    "Mombasa",
     "London",
 ];
 
@@ -130,9 +130,9 @@ export const userDummyData = {
 // Hotel Dummy Data
 export const hotelDummyData = {
     "_id": "67f76393197ac559e4089b72",
-    "name": "Diani",
+    "name": "Manson Hotel",
     "address": "Old town Road, Mombasa",
-    "contact": "+254 72345678",
+    "contact": "0758247543",
     "owner": userDummyData,
     "city": "Mombasa",
     "createdAt": "2025-04-10T06:22:11.663Z",

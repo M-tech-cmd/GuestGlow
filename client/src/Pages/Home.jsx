@@ -4,6 +4,7 @@ import FeaturedDestinations from '../Components/FeaturedDestinations'
 import ExclusiveOffers from '../Components/ExclusiveOffers'
 import Testimonial from '../Components/Testimonial'
 import NewsLetter from '../Components/NewsLetter'
+import RecommendedHotels from '../Components/RecommendedHotels'
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
     <>  
         {/* Importing Hero Component for Background */}
         <Hero/>
+        <RecommendedHotels/>
         <FeaturedDestinations/>
         <ExclusiveOffers/>
         <Testimonial/>

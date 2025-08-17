@@ -1,14 +1,14 @@
 import React from "react";
 import HotelCard from "./HotelCard";
-import { roomsDummyData } from "../assets/assets";
 import Title from "./Title";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 
 const FeaturedDestinations = () => {
+  const { rooms, navigate} = useAppContext();
 
-    const navigate = useNavigate() ;
 
-  return (
+  return rooms.length > 0 && (
     //                                                         lg:px-15 is used for spacing .
     <div className='flex flex-col items-center px-6 md:px-16 lg:px-15 bg-slate-50 py-20'> 
 
@@ -18,7 +18,7 @@ const FeaturedDestinations = () => {
     {/* Here in this div we've Mounted all the Hotel Cards */}
       <div className="flex flex-wrap items-center justify-center gap-6 mt-20">
         {/* Using Dummy Hotel Data From Assets */}
-        {roomsDummyData.slice(0, 4).map((room, index) => (
+        {rooms.slice(0, 4).map((room, index) => (
           <HotelCard key={room._id} room={room} index={index} />
         ))}
       </div>
