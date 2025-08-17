@@ -8,9 +8,9 @@ import RoomDetails from "./Pages/RoomDetails";
 import MyBooking from "./Pages/MyBooking";
 import HotelReg from "./Components/HotelReg";
 import Layout from "./Pages/hotelOwner/Layout";
-import Dashboard from "./pages/hotelOwner/Dashboard";
-import AddRoom from "./pages/hotelOwner/AddRoom";
-import ListRoom from "./pages/hotelOwner/ListRoom";
+import Dashboard from "./Pages/hotelOwner/Dashboard";
+import AddRoom from "./Pages/hotelOwner/AddRoom";
+import ListRoom from "./Pages/hotelOwner/ListRoom";
 import { Toaster } from "react-hot-toast";
 import { useAppContext } from "./context/AppContext";
 
