@@ -12,25 +12,45 @@ export const createRoom = async (req, res) => {
       return res.json({ success: false, message: "No images uploaded" });
     }
 
-    // Find the hotel by owner
+    // Find the hotel owned by the authenticated user
     const hotel = await Hotel.findOne({ owner: req.auth.userId });
     if (!hotel) {
       return res.json({ success: false, message: "No Hotel Found" });
     }
 
-    // Upload multiple images to Cloudinary
+    // Upload multiple images to Cloudinary from memory
     const images = await Promise.all(
-      req.files.map(file => cloudinary.uploader.upload(file.path).then(res => res.secure_url))
+      req.files.map(
+        (file) =>
+          new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+              { folder: "rooms" },
+              (error, result) => {
+                if (error) return reject(error);
+                resolve(result.secure_url);
+              }
+            );
+            stream.end(file.buffer); // pass buffer from memory storage
+          })
+      )
     );
 
-    // Save the room to DB
+    // Parse amenities safely
+    let parsedAmenities = [];
+    try {
+      parsedAmenities = JSON.parse(amenities);
+    } catch (err) {
+      return res.json({ success: false, message: "Invalid amenities format" });
+    }
+
+    // Create new room in the database
     const newRoom = await Room.create({
       hotel: hotel._id,
       roomType,
       pricePerNight: Number(pricePerNight),
-      amenities: JSON.parse(amenities),
+      amenities: parsedAmenities,
       images,
-      isAvailable: true
+      isAvailable: true,
     });
 
     res.json({ success: true, message: "Room Created Successfully", room: newRoom });
@@ -38,6 +58,7 @@ export const createRoom = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
 
 // API to get All Rooms
 export const getRooms = async (req, res) => {

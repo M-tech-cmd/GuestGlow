@@ -9,6 +9,7 @@ import hotelRouter from "./routes/hotelRoutes.js";
 import roomRouter from "./routes/roomRoutes.js";
 import connectCloudinary from "./configs/cloudinary.js";
 import bookingRouter from "./routes/bookingRoutes.js";
+import { stripeWebhooks } from "./controllers/stripeWebhooks.js";
 
 // Connect to MongoDB
 connectDB();
@@ -18,6 +19,9 @@ connectCloudinary();
 
 // Create an Express app
 const app = express();
+
+// API to listen to Stripe Webhooks
+app.post('/api/stripe/', express.raw({ type: 'application/json' }), stripeWebhooks)
 
 // Middleware
 app.use(cors()); // Enable Cross-Origin Resource Sharing

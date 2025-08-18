@@ -2,6 +2,7 @@ import Booking from '../models/Booking.js'
 import Room from '../models/Room.js'
 import Hotel from '../models/Hotel.js'
 import transporter from '../configs/nodemailer.js';
+import stripe from "stripe"
 
 // Function to Check Availability of Room
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
@@ -74,7 +75,7 @@ export const createBooking = async (req, res) => {
             totalPrice,
         });
 
-        // Email configuration with debugging
+       // Email configuration with debugging
         const mailOptions = {
   from: '"GuestGlow Hotel Bookings" <kimaniemma20@gmail.com>', // ✅ must match verified sender
   to: req.user.email,
@@ -100,7 +101,8 @@ export const createBooking = async (req, res) => {
 };
 
 
-        try {
+
+         try {
             console.log('Attempting to send email to:', req.user.email);
             console.log('SMTP Configuration:', {
                 user: process.env.SMTP_USER,
@@ -178,3 +180,44 @@ export const getHotelBookings = async (req, res) => {
         res.json({ success: false, message: "Failed to fetch bookings" })
     }
 }
+
+export const stripePayment = async (req, res) => {
+  try {
+    const { bookingId } = req.body;
+    const booking = await Booking.findById(bookingId);
+    if (!booking) return res.json({ success: false, message: "Booking not found" });
+
+    const roomData = await Room.findById(booking.room).populate("hotel");
+    const totalPrice = Number(booking.totalPrice);
+    const { origin } = req.headers;
+
+    const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
+
+    const line_items = [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: roomData.roomType || "Room",
+            images: [roomData.images?.[0] || "https://via.placeholder.com/150"],
+          },
+          unit_amount: totalPrice * 100,
+        },
+        quantity: 1,
+      },
+    ];
+
+    const session = await stripeInstance.checkout.sessions.create({
+      line_items,
+      mode: "payment",
+      success_url: `${origin}/loader/my-bookings`,
+      cancel_url: `${origin}/my-bookings`,
+      metadata: { bookingId },
+    });
+
+    res.json({ success: true, url: session.url });
+  } catch (error) {
+    console.error("Stripe Payment Error:", error);
+    res.json({ success: false, message: "Payment Failed" });
+  }
+};

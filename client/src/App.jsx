@@ -13,6 +13,7 @@ import AddRoom from "./Pages/hotelOwner/AddRoom";
 import ListRoom from "./Pages/hotelOwner/ListRoom";
 import { Toaster } from "react-hot-toast";
 import { useAppContext } from "./context/AppContext";
+import Loader from "./Components/Loader";
 
 const App = () => {
   // The Navbar will be displayed on all pages but is needed to be hidden from Owner
@@ -33,6 +34,9 @@ const App = () => {
           <Route path="/rooms" element={<AllRooms />} />
           <Route path="/rooms/:id" element={<RoomDetails />} />
           <Route path="/my-bookings" element={<MyBooking />} />
+
+          <Route path="/loader/:nextUrl" element={<Loader />} />
+
           {/* Creating new Route for -  Dashboard*/}
           <Route path="/owner" element={<Layout />}>
             <Route index element={<Dashboard />} />
