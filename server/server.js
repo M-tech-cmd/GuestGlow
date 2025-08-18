@@ -17,17 +17,20 @@ connectDB();
 // Connect to Cloudinary
 connectCloudinary();
 
-// Create an Express app
 const app = express();
 
-// API to listen to Stripe Webhooks
-app.post('/api/stripe/', express.raw({ type: 'application/json' }), stripeWebhooks)
+// ✅ Middleware to save raw body for Stripe Webhooks
+app.use(
+  "/api/stripe/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhooks
+);
 
-// Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
-app.use(express.json()); // Parse incoming JSON
+// Normal middlewares (after webhook!)
+app.use(cors());
+app.use(express.json()); // will not affect Stripe route because it's above
 
-// Apply Clerk middleware globally so req.auth is available everywhere
+// Apply Clerk middleware globally
 app.use(
   clerkMiddleware({
     publishableKey: process.env.CLERK_PUBLISHABLE_KEY,
@@ -42,11 +45,10 @@ app.use("/api/clerk", clerkWebhooks);
 app.get("/", (req, res) => res.send("API is working."));
 
 // Routes
-app.use("/api/user", userRouter); // user data like role, searchedCities
-app.use("/api/hotels", hotelRouter); // new hotel registration
-app.use("/api/rooms", roomRouter); // room-related endpoints
-app.use("/api/bookings", bookingRouter); // booking-related endpoints
+app.use("/api/user", userRouter);
+app.use("/api/hotels", hotelRouter);
+app.use("/api/rooms", roomRouter);
+app.use("/api/bookings", bookingRouter);
 
-// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

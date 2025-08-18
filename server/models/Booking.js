@@ -1,30 +1,33 @@
 import mongoose from "mongoose";
 
 const BookingSchema = new mongoose.Schema({
+  // Clerk user ID stored as string
+  user: { type: String, required: true },
 
-    user: {type : String, ref:"User", required : true },
-    room: {type : String, ref:"Room", required : true },
-    hotel: {type : String, ref:"Hotel", required : true },
-    checkInDate: {type : Date, required : true },
-    checkOutDate: {type : Date, required : true },
-    totalPrice: {type : Number, required : true },
-    guests: {type : Number, required : true },
-     status: {
-        type: String,
-        enum: ["pending", "confirmed", "cancelled"],
-        default: "pending",
-     },
-      paymentMethod: {
-        type: "String",
-        required: true,
-        default: "Pay At Hotel",
-      },
-       isPaid: { type: Boolean, default: false},
-  }, { timestamps: true } );
+  // Room + Hotel still reference MongoDB ObjectIds
+  room: { type: mongoose.Schema.Types.ObjectId, ref: "Room", required: true },
+  hotel: { type: mongoose.Schema.Types.ObjectId, ref: "Hotel", required: true },
 
-  const Booking = mongoose.model("Booking" , BookingSchema) ;
+  checkInDate: { type: Date, required: true },
+  checkOutDate: { type: Date, required: true },
+  totalPrice: { type: Number, required: true },
+  guests: { type: Number, required: true },
 
-  export default Booking;
+  status: {
+    type: String,
+    enum: ["pending", "confirmed", "cancelled"],
+    default: "pending",
+  },
 
-//   Now using this Room Model we can store the data in the database .
-//  To Store that we'll create the Controller Function - roomController.js
+  paymentMethod: {
+    type: String,
+    required: true,
+    default: "Pay At Hotel",
+  },
+
+  isPaid: { type: Boolean, default: false },
+}, { timestamps: true });
+
+const Booking = mongoose.model("Booking", BookingSchema);
+
+export default Booking;
